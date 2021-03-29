@@ -1,0 +1,73 @@
+---
+app-id: org.geany.Geany
+runtime: org.gnome.Sdk
+runtime-version: '3.38'
+branch: stable
+sdk: org.gnome.Sdk
+command: geany
+rename-icon: geany
+rename-desktop-file: geany.desktop
+finish-args:
+- "--share=ipc"
+- "--socket=x11"
+- "--socket=fallback-x11"
+- "--socket=wayland"
+- "--share=network"
+- "--filesystem=host"
+- "--filesystem=xdg-run/geany:create"
+modules:
+- name: vte
+  buildsystem: meson
+  sources:
+  - type: archive
+    url: ftp://ftp.acc.umu.se/pub/gnome/sources/vte/0.62/vte-0.62.3.tar.xz
+    md5: 234c80d99b7200ac39734f77366da822
+    
+- shared-modules/intltool/intltool-0.51.json
+
+- name: libxfce4util
+  sources:
+  - type: archive
+    url: http://archive.xfce.org/src/xfce/libxfce4util/4.16/libxfce4util-4.16.0.tar.bz2
+    md5: 5a2a7b72c0357f410d8e0d4190beeae2
+
+- name: Xfconf
+  sources:
+  - type: archive
+    url: http://archive.xfce.org/src/xfce/xfconf/4.16/xfconf-4.16.0.tar.bz2
+    md5: ac204fcc17fd4299d59e619aadbc6194
+
+- name: libxfce4ui
+  sources:
+  - type: archive
+    url: http://archive.xfce.org/src/xfce/libxfce4ui/4.16/libxfce4ui-4.16.0.tar.bz2
+    md5: 4a7035374f016efa968b776a110065d9
+
+- name: xfce4-terminal
+  sources:
+  - type: archive
+    url: https://archive.xfce.org/src/apps/xfce4-terminal/0.8/xfce4-terminal-0.8.10.tar.bz2
+    sha256: 7a3337c198e01262a0412384823185753ac8a0345be1d6776a7e9bbbcbf33dc7
+    
+- name: geany
+  config-opts:
+  - "--enable-gtk3"
+  sources:
+  - type: archive
+    url: https://download.geany.org/geany-1.37.1.tar.bz2
+    sha512: 9dafaa540ba4d37ae66f3cc1c4d9670aa8ea30e74e960f0ad010dcbcd1647d1dc2eea4ae7454f589fc6ec0ded0da2de98d85fecc92d8d1ff36cd62d3255a47f4
+  - type: file
+    path: org.geany.Geany.appdata.xml
+  post-install:
+  - install -Dm644 -t /app/share/metainfo org.geany.Geany.appdata.xml
+  - ln -sf /app/bin/xfce4-terminal /app/bin/xterm
+  
+cleanup:
+ - "*.a"
+ - /lib/debug
+ - /lib32/debug
+ - /lib64/debug
+ - /share/man
+ - /include    
+  
+
