@@ -61,6 +61,17 @@ modules:
   post-install:
   - install -Dm644 -t /app/share/metainfo org.geany.Geany.appdata.xml
   - ln -sf /app/bin/xfce4-terminal /app/bin/xterm
+
+
+- name: geany-themes
+  buildsystem: simple
+  build-commands:
+  - mkdir -p /app/share/geany/colorschemes/
+  - cp colorschemes/* /app/share/geany/colorschemes/
+  sources:
+  - type: git
+    url: https://github.com/geany/geany-themes
+    commit: 0e2194dc7700c1d13dd7d5e5912f3bc5fc8b9127
   
 cleanup:
  - "*.a"
