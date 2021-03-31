@@ -6,6 +6,9 @@ The flathub version cannot run programs (run f5 key) like the desktop version as
 
  Fortunately XFCE4-Terminal works flawlessly.
  
+ #### Get flatpak
+ https://github.com/fastrizwaan/geany_flatpak/releases
+ 
  So let's build and install:
 ```
 sudo flatpak --system remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
