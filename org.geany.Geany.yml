@@ -73,6 +73,18 @@ modules:
     url: https://github.com/geany/geany-themes
     commit: 0e2194dc7700c1d13dd7d5e5912f3bc5fc8b9127
   
+
+- name: geany-build-before-run
+  buildsystem: simple
+  build-commands:
+  - mkdir -p /app/share/geany/filedefs
+  - install -Dm644 filetypes.cpp /app/share/geany/filedefs/filetypes.c
+  - install -Dm644 filetypes.cpp /app/share/geany/filedefs/filetypes.cpp
+  sources:
+  - type: file
+    path: filetypes.cpp
+  
+  
 cleanup:
  - "*.a"
  - /lib/debug
